@@ -39,29 +39,28 @@
                     li.remove();
                 })
 
-                li.addEventListener('click',() => 
+                li.addEventListener('click',() =>
                 {
-                    li.classList.toggle('done')   
+                    li.classList.toggle('done')
+                })
+            })
+
+            let savedTasks = JSON.parse(localStorage.getItem('tasks')) || []
+
+            savedTasks.forEach((taskText) => {
+                let li = document.createElement('li')
+                li.innerHTML = `${taskText} <button>Delete</button>`
+                divD.appendChild(li)
+
+                let deleteBtn = li.querySelector('button')
+                deleteBtn.addEventListener('click', () => {
+                    li.remove()
                 })
 
+                li.addEventListener('click', () => {
+                    li.classList.toggle('done')
                 })
-
-                let savedTasks = JSON.parse(localStorage.getItem('tasks')) || []
-
-                savedTasks.forEach((taskText) => {
-                    let li = document.createElement('li')
-                    li.innerHTML = `${taskText} <button>Delete</button>`
-                    divD.appendChild(li)
-
-                    let deleteBtn = li.querySelector('button')
-                    deleteBtn.addEventListener('click', () => {
-                        li.remove()
-                    })
-
-                    li.addEventListener('click', () => {
-                        li.classList.toggle('done')
-                    })
-                })
+            })
 
         
             
@@ -69,3 +68,4 @@
     </script>
 </body>
 </html>
+

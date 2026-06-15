@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+</head>
+<body>
+
+    <h1>Weather App</h1>
+
+    <input id="cityInput" placeholder="Enter a city..." />
+    <button id="searchBtn">Search</button>
+
+    <p id="status"></p>
+
+    <div id="result"></div>
+
+    <script>
+        let cityIn = document.getElementById('cityInput');
+        const sBtn = document.getElementById('searchBtn');
+        let stats = document.getElementById('status');
+        let result = document.getElementById('result');
+
+
+        sBtn.addEventListener('click',() =>
+        {   
+         let wData = cityIn.value;   
+
+         async function weather() {
+                stats.textContent = 'Loading.....'
+                let response = await fetch (`https://api.openweathermap.org/data/2.5/weather?q=${wData}&appid=4b404ab25686ad70e624a114a2ab8e9f&units=metric`)
+                 let data = await response.json()
+                console.log(data)
+                if (data.cod === '404') {
+                    stats.textContent = 'City not found. Please try again.'
+                    result.innerHTML = ''
+                    return
+                }
+                result.innerHTML = `<h2>${data.name}</h2><p>Temperature: ${data.main.temp}C</p><p>${data.weather[0].description}</p>`
+                stats.textContent = ''
+                
+         }
+                weather()   
+
+        }
+        )
+         
+    </script>
+
+</body>
+</html>
